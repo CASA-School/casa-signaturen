@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
+           xsi:type="MailApp">
+  <Id>796b9014-f8bf-496c-8986-8116ebb486ae</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>CASA – Internationale Sprachschule gGmbH</ProviderName>
+  <DefaultLocale>de-DE</DefaultLocale>
+  <DisplayName DefaultValue="CASA Signatur"/>
+  <Description DefaultValue="Fügt beim Schreiben automatisch die CASA-E-Mail-Signatur des Absenderpostfachs ein."/>
+  <IconUrl DefaultValue="https://casa-signaturen.vercel.app/addin/icon-64.png"/>
+  <HighResolutionIconUrl DefaultValue="https://casa-signaturen.vercel.app/addin/icon-128.png"/>
+  <SupportUrl DefaultValue="https://casa-signaturen.vercel.app/"/>
+  <AppDomains>
+    <AppDomain>https://casa-signaturen.vercel.app</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://casa-signaturen.vercel.app/addin/commands.html"/>
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+  <Permissions>ReadWriteItem</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit"/>
+  </Rule>
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.10">
+          <bt:Set Name="Mailbox"/>
+        </bt:Sets>
+      </Requirements>
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <Runtimes>
+            <!-- Outlook im Web / neues Outlook / Mac: HTML-Seite; klassisches Outlook für Windows: nur die JS-Datei -->
+            <Runtime resid="WebViewRuntime.Url">
+              <Override type="javascript" resid="JSRuntime.Url"/>
+            </Runtime>
+          </Runtimes>
+          <DesktopFormFactor>
+            <SupportsSharedFolders>true</SupportsSharedFolders>
+            <FunctionFile resid="WebViewRuntime.Url"/>
+            <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="casaSignaturGroup">
+                  <Label resid="GroupLabel"/>
+                  <Control xsi:type="Button" id="casaSignaturInsert">
+                    <Label resid="ButtonLabel"/>
+                    <Supertip>
+                      <Title resid="ButtonLabel"/>
+                      <Description resid="ButtonDesc"/>
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon16"/>
+                      <bt:Image size="32" resid="Icon32"/>
+                      <bt:Image size="80" resid="Icon80"/>
+                    </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                      <FunctionName>insertSignatureCommand</FunctionName>
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent Type="OnNewMessageCompose" FunctionName="onNewMessageComposeHandler"/>
+                <LaunchEvent Type="OnMessageFromChanged" FunctionName="onMessageFromChangedHandler"/>
+              </LaunchEvents>
+              <SourceLocation resid="WebViewRuntime.Url"/>
+            </ExtensionPoint>
+          </DesktopFormFactor>
+        </Host>
+      </Hosts>
+      <Resources>
+        <bt:Images>
+          <bt:Image id="Icon16" DefaultValue="https://casa-signaturen.vercel.app/addin/icon-16.png"/>
+          <bt:Image id="Icon32" DefaultValue="https://casa-signaturen.vercel.app/addin/icon-32.png"/>
+          <bt:Image id="Icon80" DefaultValue="https://casa-signaturen.vercel.app/addin/icon-80.png"/>
+        </bt:Images>
+        <bt:Urls>
+          <bt:Url id="WebViewRuntime.Url" DefaultValue="https://casa-signaturen.vercel.app/addin/commands.html"/>
+          <bt:Url id="JSRuntime.Url" DefaultValue="https://casa-signaturen.vercel.app/addin/launchevent.js"/>
+        </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String id="GroupLabel" DefaultValue="CASA"/>
+          <bt:String id="ButtonLabel" DefaultValue="CASA-Signatur"/>
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String id="ButtonDesc" DefaultValue="Setzt die CASA-Signatur des Absenderpostfachs in diese E-Mail ein (ersetzt eine vorhandene Signatur)."/>
+        </bt:LongStrings>
+      </Resources>
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>

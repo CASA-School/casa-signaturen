@@ -10,3 +10,10 @@ Live: https://casa-signaturen.vercel.app
 
 Bilder (`public/casa-logo.png`, `public/instagram-icon.png`) werden von den Signaturen direkt von dieser Adresse geladen –
 Dateien nicht umbenennen oder löschen, sonst fehlt das Logo in bereits eingerichteten Signaturen.
+
+## Outlook-Add-in „CASA Signatur“ (`public/addin/`)
+Setzt beim Verfassen automatisch die Signatur des Absenderpostfachs (`signatures.json`, von `build_site.py` gebaut)
+und tauscht sie beim Wechsel im Feld „Von“. Vorhandene Outlook-Signaturen werden ersetzt, nicht verdoppelt.
+Manifest: https://casa-signaturen.vercel.app/addin/manifest.xml
+- Test für eine Person: Outlook im Web → https://aka.ms/olksideload → Benutzerdefinierte Add-Ins → Aus URL hinzufügen.
+- Für alle: Microsoft 365 Admin Center → Einstellungen → Integrierte Apps → Benutzerdefinierte Apps hochladen → Manifest-URL.

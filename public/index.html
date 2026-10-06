@@ -59,17 +59,19 @@ footer{color:var(--muted);font-size:13px;margin-top:40px}
 </main>
 <script>
 async function copyHtml(el){
-  const html = el.innerHTML, text = el.innerText;
+  // wie markieren + Strg/Cmd+C: Outlook übernimmt so Layout, Links und Bilder am zuverlässigsten
+  const s = getSelection(), r = document.createRange();
+  r.selectNodeContents(el); s.removeAllRanges(); s.addRange(r);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) {}
+  s.removeAllRanges();
+  if (ok) return true;
   try {
     await navigator.clipboard.write([new ClipboardItem({
-      "text/html": new Blob([html], {type:"text/html"}),
-      "text/plain": new Blob([text], {type:"text/plain"})})]);
+      "text/html": new Blob([el.innerHTML], {type:"text/html"}),
+      "text/plain": new Blob([el.innerText], {type:"text/plain"})})]);
     return true;
-  } catch (e) {
-    const r = document.createRange(); r.selectNodeContents(el);
-    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
-    const ok = document.execCommand("copy"); s.removeAllRanges(); return ok;
-  }
+  } catch (e) { return false; }
 }
 document.querySelectorAll(".card").forEach(card => {
   const sig = card.querySelector(".sig"), form = card.querySelector(".edit");

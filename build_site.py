@@ -1,6 +1,6 @@
 # Baut public/index.html: alle CASA-Signaturen (V5) mit "Signatur kopieren" und "Bearbeiten".
 # Quelle der Signatur: signatur.py (Kopie von output/casa-signatur/build.py). Danach: git push -> Vercel deployt.
-import html, os
+import html, json, os
 from signatur import build, MAILBOXES
 
 SITE = os.environ.get("SITE_URL", "https://casa-signaturen.vercel.app")
@@ -15,16 +15,19 @@ NEW = dict(signer="Vorname Nachname", role_de="Vorname Nachname",
 def clean(s):
     return html.unescape(s).replace("­", "")
 
+def absolute(out):
+    for img in ("casa-logo.png", "instagram-icon.png"):
+        out = out.replace(f'src="{img}"', f'src="{SITE}/{img}"')
+    assert "data:image" not in out and 'src="casa' not in out
+    return out
+
 def sig(v):
     # editierbare Stellen markieren; Bilder als feste URLs, damit Outlook sie sicher übernimmt
     out = build(signer=f'<span data-f="signer">{v["signer"]}</span>',
                 role_de=f'<span data-f="role_de">{v["role_de"]}</span>',
                 role_en=f'<span data-f="role_en">{v["role_en"]}</span>',
                 mail=v["mail"], embed=False)
-    for img in ("casa-logo.png", "instagram-icon.png"):
-        out = out.replace(f'src="{img}"', f'src="{SITE}/{img}"')
-    assert "data:image" not in out and 'src="casa' not in out
-    return out
+    return absolute(out)
 
 def card(key, v, title, sub, extra=""):
     return (f'<section class="card{extra}" id="{key}"><header><div><h3>{title}</h3><p>{sub}</p></div>'
@@ -56,3 +59,10 @@ page = (page.replace("{{TOC_PEOPLE}}", toc(PEOPLE)).replace("{{PEOPLE}}", cards_
             .replace("{{NEW}}", card_new).replace("{{SITE}}", SITE))
 open(os.path.join(D, "public", "index.html"), "w").write(page)
 print("public/index.html", len(PEOPLE) + len(SHARED), "Signaturen +1 Vorlage,", SITE)
+
+# Für das Outlook-Add-in: Absenderadresse -> fertige Signatur (ohne Bearbeiten-Markierungen)
+sigs = {v["mail"].lower(): absolute(build(**{k: x for k, x in v.items() if k != "todo"}, embed=False))
+        for v in MAILBOXES.values()}
+os.makedirs(os.path.join(D, "public", "addin"), exist_ok=True)
+json.dump(sigs, open(os.path.join(D, "public", "addin", "signatures.json"), "w"), ensure_ascii=False)
+print("public/addin/signatures.json", len(sigs), "Postfächer")
