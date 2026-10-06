@@ -60,9 +60,11 @@ page = (page.replace("{{TOC_PEOPLE}}", toc(PEOPLE)).replace("{{PEOPLE}}", cards_
 open(os.path.join(D, "public", "index.html"), "w").write(page)
 print("public/index.html", len(PEOPLE) + len(SHARED), "Signaturen +1 Vorlage,", SITE)
 
-# Für das Outlook-Add-in: Absenderadresse -> fertige Signatur (ohne Bearbeiten-Markierungen)
+# Für das Outlook-Add-in: Absenderadresse -> fertige Signatur (ohne Bearbeiten-Markierungen).
+# Postfächer in ADDIN_EXCLUDE lässt das Add-in in Ruhe (Entscheidung Rahman 06.10.2026: online@ nicht).
+ADDIN_EXCLUDE = {"online@casa-bremen.de"}
 sigs = {v["mail"].lower(): absolute(build(**{k: x for k, x in v.items() if k != "todo"}, embed=False))
-        for v in MAILBOXES.values()}
+        for v in MAILBOXES.values() if v["mail"].lower() not in ADDIN_EXCLUDE}
 os.makedirs(os.path.join(D, "public", "addin"), exist_ok=True)
 json.dump(sigs, open(os.path.join(D, "public", "addin", "signatures.json"), "w"), ensure_ascii=False)
 print("public/addin/signatures.json", len(sigs), "Postfächer")
