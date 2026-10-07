@@ -43,10 +43,11 @@ def link(href, text, nowrap_halves=None):
                 f'<span style="{NW}">{a}</span><wbr><span style="{NW}">{b}</span></a>')
     return f'<a href="{href}" style="{st};white-space:nowrap">{text}</a>'
 
-def build(signer, role_de, role_en, mail, embed=True, greeting=True, greet_above=None):
+def build(signer, role_de, role_en, mail, embed=True, greeting=True, greet_above="flush"):
     # greeting=False: ohne Grußzeile (für FileMaker-Mails, deren Text schon mit Gruß + Name endet)
     # greet_above (Vorschlag 07.10.2026): Grußzeile über der linken Linie, Linie beginnt auf Höhe von Logo und
-    # Trennlinie. "flush" = Gruß bündig mit der Linie, "indent" = Gruß bündig mit dem Logo. None = bisherige Fassung.
+    # Trennlinie. "flush" = Gruß bündig mit der Linie (Standard seit 07.10.2026, Entscheidung Rahman: Vorschlag A),
+    # "indent" = Gruß bündig mit dem Logo, None = alte Fassung (Gruß innerhalb der Linie).
     S14, S13, S11 = sep(14), sep(13), sep(11)
     local, dom = mail.split("@", 1)
     contact = (

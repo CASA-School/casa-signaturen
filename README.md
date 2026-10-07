@@ -82,6 +82,8 @@ Nur bei Änderungen an `manifest.xml` (neue Ereignisse, Rechte, Icons, Name): `<
 - **Buchhaltung (07.10.2026, Rahman):** Ina/Manuela „Buchhaltung / Finance & Accounting“; buchhaltung@ fett „Buchhaltung“,
   kursiv „Finance & Accounting“, Gruß „Ina Eismann und Manuela Meerhoff“. „Finance & Accounting“ statt „Finances and
   Accounting“ (üblicher Fachbegriff).
+- **Layout (07.10.2026, Rahman):** Grußzeile über der linken Linie, bündig mit ihr; die Linie beginnt auf Höhe von Logo
+  und Trennlinie (`greet_above="flush"` in `build()`, Vorschlag A).
 - **Add-in im selben Repo wie die Webseite:** eine Quelle, ein Deploy, gleicher Ursprung für JSON und Bilder.
 - Konten: GitHub `rshafiee-casa`; Vercel CASA = Chrome-Profil r.shafiee („Browser 2“); Admin Center mit it@casa-bremen.de.
   Der lokale `vercel`-CLI-Login ist Rahmans privates Konto – nicht für CASA verwenden.
