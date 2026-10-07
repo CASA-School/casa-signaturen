@@ -43,8 +43,10 @@ def link(href, text, nowrap_halves=None):
                 f'<span style="{NW}">{a}</span><wbr><span style="{NW}">{b}</span></a>')
     return f'<a href="{href}" style="{st};white-space:nowrap">{text}</a>'
 
-def build(signer, role_de, role_en, mail, embed=True, greeting=True):
+def build(signer, role_de, role_en, mail, embed=True, greeting=True, greet_above=None):
     # greeting=False: ohne Grußzeile (für FileMaker-Mails, deren Text schon mit Gruß + Name endet)
+    # greet_above (Vorschlag 07.10.2026): Grußzeile über der linken Linie, Linie beginnt auf Höhe von Logo und
+    # Trennlinie. "flush" = Gruß bündig mit der Linie, "indent" = Gruß bündig mit dem Logo. None = bisherige Fassung.
     S14, S13, S11 = sep(14), sep(13), sep(11)
     local, dom = mail.split("@", 1)
     contact = (
@@ -71,8 +73,9 @@ def build(signer, role_de, role_en, mail, embed=True, greeting=True):
     greet = (f'<div style="{AR};font-size:14px;color:{INK};margin-bottom:16px">'
         f'{nw("Freundliche Gr&uuml;&szlig;e")}{S14}'
         f'<span lang="en" style="{NW}">Kind regards</span><br>{nw(signer)}</div>') if greeting else ''
+    above = greet if greet_above else ''
     inner = (
-      greet +
+      ('' if greet_above else greet) +
       '<table role="presentation" cellpadding="0" cellspacing="0" '
       'style="border-collapse:collapse"><tr>'
         '<td style="padding:0 18px 0 0;vertical-align:top;border-bottom:0">'
@@ -89,8 +92,10 @@ def build(signer, role_de, role_en, mail, embed=True, greeting=True):
         # Instagram unten in der linken Spalte, Handle auf Höhe der letzten Kontaktzeile (rowspan rechts)
         '<td style="padding:0 18px 1px 0;vertical-align:bottom;border-bottom:0">' + insta_block(embed) + '</td>'
       '</tr></table>' + footer)
+    if above and greet_above == "indent":
+        above = f'<div style="padding-left:17px">{above}</div>'
     return (
-      f'<div lang="de" style="{AR};font-size:14px;line-height:1.5;color:{INK}">'
+      f'<div lang="de" style="{AR};font-size:14px;line-height:1.5;color:{INK}">' + above +
       '<table role="presentation" cellpadding="0" cellspacing="0" '
       'style="border-collapse:collapse"><tr>'
       f'<td width="1" bgcolor="{LINE}" style="width:1px;padding:0;font-size:0;line-height:0;'

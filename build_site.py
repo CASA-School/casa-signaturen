@@ -74,3 +74,35 @@ sigs = {v["mail"].lower(): absolute(build(**{k: x for k, x in v.items() if k != 
 os.makedirs(os.path.join(D, "public", "addin"), exist_ok=True)
 json.dump(sigs, open(os.path.join(D, "public", "addin", "signatures.json"), "w"), ensure_ascii=False)
 print("public/addin/signatures.json", len(sigs), "Postfächer")
+
+# Vorschau für Layout-Vorschläge (nicht verlinkt, noindex): public/vorschau.html
+def preview_card(title, note, v, mode):
+    return (f'<section class="pv"><h3>{title}</h3><p>{note}</p>'
+            f'<div class="sig">{absolute(build(**v, embed=False, greet_above=mode))}</div></section>')
+pv_rows = ""
+for key in ("bettina", "info"):
+    v = {k: x for k, x in MAILBOXES[key].items() if k != "todo"}
+    pv_rows += (f'<h2>{label(key)[0]} – {v["mail"]}</h2><div class="grid">'
+                + preview_card("Heute", "Gruß innerhalb der Linie", v, None)
+                + preview_card("Vorschlag A", "Gruß über der Linie, bündig mit der Linie", v, "flush")
+                + preview_card("Vorschlag B", "Gruß über der Linie, bündig mit dem Logo", v, "indent")
+                + '</div>')
+open(os.path.join(D, "public", "vorschau.html"), "w").write(f'''<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Signatur-Vorschau</title>
+<style>
+:root{{--bg:#f6f3ee;--line:#e2dcd2;--muted:#6e675e}}
+body{{margin:0;background:var(--bg);color:#1d1d1b;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}}
+main{{max-width:1500px;margin:0 auto;padding:28px 16px 60px}}
+.stripe{{height:4px;background:linear-gradient(90deg,#e30613 0 33.3%,#009fe3 33.3% 66.6%,#ffd500 66.6%)}}
+h1{{margin:0 0 4px;font-size:24px}} h2{{font-size:17px;margin:30px 0 10px}} .lead{{color:var(--muted);margin:0}}
+.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:14px}}
+.pv{{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}}
+.pv h3{{margin:0;padding:10px 16px 0;font-size:15px}} .pv p{{margin:0;padding:0 16px 10px;color:var(--muted);font-size:13px;border-bottom:1px solid var(--line)}}
+.sig{{padding:22px 18px;overflow-x:auto}}
+</style></head><body><div class="stripe"></div><main>
+<h1>Signatur – Vorschlag Grußzeile</h1>
+<p class="lead">Nur Vorschau. Die echten Signaturen und das Add-in sind unverändert.</p>
+{pv_rows}</main></body></html>
+''')
+print("public/vorschau.html")
