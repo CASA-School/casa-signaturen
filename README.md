@@ -75,6 +75,7 @@ Nur bei Änderungen an `manifest.xml` (neue Ereignisse, Rechte, Icons, Name): `<
 | In Outlook im Web erst nach Neuladen | Normal beim ersten Mal (Add-ins werden beim Seitenstart geladen). |
 | Signatur doppelt | Alte Outlook-Signatur auf „Keine“ (Einstellungen → Signaturen, neue Nachrichten + Antworten). |
 | Legacy Outlook für Mac | Keine automatische Einfügung, nur Knopf. Auf „Neues Outlook“ umstellen. |
+| Apple Mail: Bilder in der **Antwort** weg, nur `<casa-logo.png>` | Normal: Apple Mail lässt Inline-Bilder beim Antworten weg. Beim Lesen sind sie da (getestet 07.10.). Pro Mac änderbar: Bearbeiten → Anhänge → „Originalanhänge in Antwort einfügen“. |
 | Logo fehlt in Mails | `public/casa-logo.png` erreichbar? Nie umbenennen/löschen. |
 | Eingefügt nur als Text (Webseite) | Direkt in Outlooks Signatur-Editor einfügen, Chrome/Edge verwenden. |
 
