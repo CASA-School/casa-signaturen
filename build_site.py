@@ -6,6 +6,12 @@ from signatur import build, MAILBOXES
 SITE = os.environ.get("SITE_URL", "https://casa-signaturen.vercel.app")
 D = os.path.dirname(os.path.abspath(__file__))
 
+# signatur.py ist eine Kopie der Hauptquelle; liegt die Hauptquelle daneben, müssen beide gleich sein
+MAIN = os.path.join(D, "..", "output", "casa-signatur", "build.py")
+if os.path.exists(MAIN) and open(MAIN).read() != open(os.path.join(D, "signatur.py")).read():
+    raise SystemExit("signatur.py weicht von output/casa-signatur/build.py ab – erst kopieren: "
+                     "cp ../output/casa-signatur/build.py signatur.py")
+
 PEOPLE = ["bettina", "claudia", "natalia", "alissa", "tanja", "mareike", "meike",
           "manuela", "ina", "ilka", "rahman"]
 SHARED = [k for k in MAILBOXES if k not in PEOPLE]
