@@ -36,6 +36,7 @@ public/
     commands.html      Laufzeit für Outlook im Web / neues Outlook / Mac (lädt office.js + launchevent.js)
     launchevent.js     Logik (klassisches Outlook für Windows lädt nur diese Datei)
     signatures.json    generiert: Absenderadresse (klein) -> fertiges Signatur-HTML
+    images.json        generiert: Logo + Instagram-Symbol als base64 (Inline-Anhänge)
     icon-*.png         Segel aus dem CASA-Logo (16/32/64/80/128)
 ```
 
@@ -44,6 +45,8 @@ public/
   gewechselt, z. B. auf info@). Zusätzlich Knopf **Apps → „CASA Signatur“** im Verfassen-Fenster.
 - Liest die Absenderadresse (`item.from`, sonst Postfach des Nutzers), holt `signatures.json` und setzt die Signatur mit
   `body.setSignatureAsync` – das **ersetzt** einen vorhandenen Signaturblock, verdoppelt nicht.
+- Logo und Instagram-Symbol hängt es als **Inline-Anhang** an (`cid:casa-logo.png`, `cid:casa-instagram.png`, je Mail nur
+  einmal), damit sie auch bei Empfängern mit blockierten externen Bildern erscheinen. Schlägt das fehl: Web-Adressen.
 - Adresse nicht in `signatures.json` (z. B. online@, bewerbungen@): Add-in tut nichts, Outlook-Signatur bleibt.
 - Rechte: ReadWriteItem (nur die gerade verfasste Mail). Daten verlassen Outlook nicht; geladen wird nur die JSON-Datei.
 
@@ -84,6 +87,8 @@ Nur bei Änderungen an `manifest.xml` (neue Ereignisse, Rechte, Icons, Name): `<
   Accounting“ (üblicher Fachbegriff).
 - **Layout (07.10.2026, Rahman):** Grußzeile über der linken Linie, bündig mit ihr; die Linie beginnt auf Höhe von Logo
   und Trennlinie (`greet_above="flush"` in `build()`, Vorschlag A).
+- **Inline-Bilder + Grußzeile 11 pt (07.10.2026, Rahman):** Bilder fehlten in Antworten, weil Mac-Mailprogramme externe
+  Bilder blockieren.
 - **Add-in im selben Repo wie die Webseite:** eine Quelle, ein Deploy, gleicher Ursprung für JSON und Bilder.
 - Konten: GitHub `rshafiee-casa`; Vercel CASA = Chrome-Profil r.shafiee („Browser 2“); Admin Center mit it@casa-bremen.de.
   Der lokale `vercel`-CLI-Login ist Rahmans privates Konto – nicht für CASA verwenden.

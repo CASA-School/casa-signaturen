@@ -48,7 +48,7 @@ def build(signer, role_de, role_en, mail, embed=True, greeting=True, greet_above
     # greet_above (Vorschlag 07.10.2026): Grußzeile über der linken Linie, Linie beginnt auf Höhe von Logo und
     # Trennlinie. "flush" = Gruß bündig mit der Linie (Standard seit 07.10.2026, Entscheidung Rahman: Vorschlag A),
     # "indent" = Gruß bündig mit dem Logo, None = alte Fassung (Gruß innerhalb der Linie).
-    S14, S13, S11 = sep(14), sep(13), sep(11)
+    S13, S11 = sep(13), sep(11)
     local, dom = mail.split("@", 1)
     contact = (
       f'<div style="{AR};font-size:13px;line-height:1.4;color:{INK}">'
@@ -71,8 +71,8 @@ def build(signer, role_de, role_en, mail, embed=True, greeting=True, greet_above
         f'{nw("Managing Director: Bettina Rick",";font-style:italic")}{S11}'
         f'{nw("Non-profit under &sect; 5 (1) no. 9 KStG",";font-style:italic")}</span>'
       '</div>')
-    greet = (f'<div style="{AR};font-size:14px;color:{INK};margin-bottom:16px">'
-        f'{nw("Freundliche Gr&uuml;&szlig;e")}{S14}'
+    greet = (f'<div style="{AR};font-size:11pt;color:{INK};margin-bottom:16px">'
+        f'{nw("Freundliche Gr&uuml;&szlig;e")} <span style="{AR};font-size:11pt;padding:0 3px">&bull;</span> '
         f'<span lang="en" style="{NW}">Kind regards</span><br>{nw(signer)}</div>') if greeting else ''
     above = greet if greet_above else ''
     inner = (

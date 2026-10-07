@@ -74,3 +74,10 @@ sigs = {v["mail"].lower(): absolute(build(**{k: x for k, x in v.items() if k != 
 os.makedirs(os.path.join(D, "public", "addin"), exist_ok=True)
 json.dump(sigs, open(os.path.join(D, "public", "addin", "signatures.json"), "w"), ensure_ascii=False)
 print("public/addin/signatures.json", len(sigs), "Postfächer")
+
+# Für das Add-in: Bilder als base64, damit sie als Inline-Anhang (cid:) in der Mail selbst mitreisen
+import base64
+imgs = {name: base64.b64encode(open(os.path.join(D, "public", name), "rb").read()).decode()
+        for name in ("casa-logo.png", "instagram-icon.png")}
+json.dump(imgs, open(os.path.join(D, "public", "addin", "images.json"), "w"))
+print("public/addin/images.json", {k: len(v) for k, v in imgs.items()})
