@@ -83,9 +83,11 @@ Nur bei Änderungen an `manifest.xml` (neue Ereignisse, Rechte, Icons, Name): `<
 | Eingefügt nur als Text (Webseite) | Direkt in Outlooks Signatur-Editor einfügen, Chrome/Edge verwenden. |
 
 ## Entscheidungen
-- **FileMaker (08.10.2026, Rahman):** FileMaker-Mails bekommen die **persönliche** Signatur des FileMaker-Nutzers
-  (Skript `_Signature`, aus `build.py` mit `greeting=False`, Bilder als data-URIs), Absender immer info@.
-  `_MailDraft` v5 legt nur stille Entwürfe an, daher feuert das Add-in bei FileMaker-Mails nicht – keine Doppelsignatur.
+- **FileMaker (08.10.2026 abends, Rahman – ersetzt die Fassung vom Nachmittag):** FileMaker hängt **keine** Signatur
+  mehr an, außer in den 5 Skripten, die früher den alten Footer hatten (dort V5: HTML in Outlook, Text unter Windows).
+  Alle anderen FileMaker-Mails kommen unsigniert als stiller Entwurf in Outlook an; die Signatur kommt vom Add-in
+  (Knopf „CASA Signatur“ bzw. beim Wechsel im Feld „Von“ – bei stillen Entwürfen feuert es nicht von selbst).
+  Anlass: Doppelsignatur auf einem FileMaker-Brief.
 - **Repo öffentlich (06.10.2026, Rahman):** Vercel Hobby deployt keine privaten Org-Repos; Pro kostet. Inhalt = was ohnehin
   in jeder Signatur steht (Namen, Funktionen, Dienstadressen, Logo), keine Geheimnisse.
 - **online@ ausgenommen (06.10.2026, Rahman).**
