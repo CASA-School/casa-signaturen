@@ -57,9 +57,8 @@ public/
 3. `python3 build_site.py` – bricht ab, wenn `signatur.py` und `build.py` nicht identisch sind.
 4. Commit + `git push` → Vercel deployt in ~30 s. **Fertig:** Add-in-Nutzer haben die Änderung ab der nächsten Mail,
    nichts neu verteilen.
-5. **FileMaker Bescheid geben:** FileMaker liest `build.py` nicht live. Session „FileMaker Fix/Improvements“
-   (casa-microsoft-platform) muss das Skript `_Signature` neu bauen und einspielen – sonst stehen in FileMaker-Mails
-   alte Titel/Personen.
+5. **FileMaker:** liest `build.py` nicht live; das Skript `_Signature` muss neu gebaut werden. Rahman entscheidet, ob
+   und wann die Session „FileMaker Fix/Improvements“ das übernimmt – andere Sessions nicht von selbst anschreiben.
 
 Nur bei Änderungen an `manifest.xml` (neue Ereignisse, Rechte, Icons, Name): `<Version>` erhöhen und im Admin Center
 „CASA Signatur“ → **Add-in aktualisieren**. Danach bis zu 24 h Verteilzeit.
