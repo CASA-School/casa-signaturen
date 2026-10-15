@@ -6,7 +6,7 @@ NW    = AR + ";white-space:nowrap"
 LINE  = "#C6C1B9"   # beige-grey, both verticals, 1px
 RULE  = "#DDD7CB"   # footer hairline
 BLUE  = "#009FE3"   # logo blue, links
-INK   = "#1D1D1B"
+INK   = "#000000"   # reines Schwarz (Rahman 15.10.2026), vorher #1D1D1B
 GREY  = "#6E675E"
 
 def img_src(name, embed):
