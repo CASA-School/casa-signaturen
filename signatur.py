@@ -85,7 +85,7 @@ def build(signer, role_de, role_en, mail, embed=True, greeting=True, greet_above
         f'<td rowspan="2" style="padding:0 0 0 18px;border-left:1px solid {LINE};vertical-align:top;'
         f'border-bottom:0">'
           f'<div style="{AR};font-size:16px;color:{INK}"><b>{role_de}</b></div>'
-          + (f'<div lang="en" style="{AR};font-size:14px;color:#4A4642;'
+          + (f'<div lang="en" style="{AR};font-size:14px;color:{INK};'
              f'font-style:italic;margin-bottom:10px">{role_en}</div>'
              if role_en else '<div style="height:10px;line-height:10px;font-size:0">&nbsp;</div>')
           + f'{contact}</td>'
