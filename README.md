@@ -70,6 +70,10 @@ Nur bei Änderungen an `manifest.xml` (neue Ereignisse, Rechte, Icons, Name): `<
 
 ## Fehlersuche
 
+> **Vercel-Projekt `casa-signaturen` nie löschen oder umbenennen.** Das Add-in lädt Code, Signaturen und Bilder von
+> casa-signaturen.vercel.app. Am 05.11.2026 versehentlich gelöscht → keine Signaturen mehr. Wiederherstellung: Repo im
+> CASA-Team neu importieren, **gleicher Projektname** `casa-signaturen` → gleiche Adresse, im Admin Center nichts ändern.
+
 | Symptom | Ursache / Lösung |
 |---|---|
 | Nach Zuweisung nichts in Outlook | Verteilung dauert Stunden, bis 24 h, je Konto unterschiedlich. Outlook ganz beenden (Cmd+Q), neu öffnen. |
