@@ -112,3 +112,25 @@ Nur bei Änderungen an `manifest.xml` (neue Ereignisse, Rechte, Icons, Name): `<
 - Optional kurze Adresse `signatur.casa-bremen.de` (DNS-Eintrag beim Domain-Verwalter nötig).
 - Rundmail ans Team liegt als Entwurf in r.shafiee (Betreff „Neue E-Mail-Signatur: Outlook setzt sie ab jetzt
   automatisch ein“) – Rahman prüft und versendet selbst.
+
+
+## Workspace-Übergabe — lokal vorbereitet, 06.11.2026
+
+Branch `codex/workspace-mail-handoff`; **noch nicht veröffentlicht/nativ abgenommen**.
+Der vorhandene Compose-Handler erkennt einen genau passenden CASA-Workspace-Platzhalter,
+löst dessen Einmalcode am Workspace ein und setzt Nachricht, Signatur und echte PDF-/Inline-Anhänge
+über Office.js ein. Empfänger werden erst nach erfolgreicher Vorbereitung gesetzt, Bcc bleibt
+getrennt. Normale E-Mails behalten die bisherige Signaturlogik. Beim Wechsel des Absenders wird
+eine noch laufende Workspace-Übergabe nicht durch eine zweite Signatur überschrieben.
+Der Code wird nur für diese Übergabe an admin.casa-bremen.de übermittelt; keine Outlook-Anmeldedaten
+oder sonstigen Postfachinhalte werden übertragen. Manifest/Ereignisse/ReadWriteItem bleiben gleich.
+
+Die passende Website-Implementierung liegt auf `codex/native-outlook-handoff` in
+`/Users/rahmanshafiee/.codex/worktrees/own-note-deletion/CASA`; dort steht das Release-/Pilotverfahren
+in `docs/NATIVE_OUTLOOK_HANDOFF.md`. Erst Website + Add-in veröffentlichen, danach einen ausdrücklich
+freigegebenen Benutzer aktivieren und den vollständigen nativen Ablauf prüfen. Ein Push/Merge nach
+main veröffentlicht diese Add-in-Änderung auf Vercel; deshalb bis zur Release-Freigabe nicht mergen.
+
+Prüfung: `node --test tests/workspace-handoff.test.cjs` (7 Verträge) und `node --check public/addin/launchevent.js`.
+Die Tests ersetzen keine native Abnahme. Die neue `.well-known`-Datei erlaubt die vorhandene
+JavaScript-Laufzeit für CORS im klassischen Outlook unter Windows; Mac nutzt die HTML-Laufzeit.
