@@ -134,3 +134,14 @@ main veröffentlicht diese Add-in-Änderung auf Vercel; deshalb bis zur Release-
 Prüfung: `node --test tests/workspace-handoff.test.cjs` (7 Verträge) und `node --check public/addin/launchevent.js`.
 Die Tests ersetzen keine native Abnahme. Die neue `.well-known`-Datei erlaubt die vorhandene
 JavaScript-Laufzeit für CORS im klassischen Outlook unter Windows; Mac nutzt die HTML-Laufzeit.
+
+
+## Workspace-Freigabe und Maryams Signatur (07.11.2026)
+
+Rahman hat die Desktop-Übergabe für die zehn administrativen Workspace-Konten freigegeben.
+Das in Outlook gewählte Absenderkonto darf vom Workspace-Login abweichen; Mitarbeitende können
+es selbst wechseln. Es wird weder erzwungen gewechselt noch wegen einer Abweichung blockiert.
+`build_site.py` ordnet `m.trawally@casa-bremen.de` exakt der bestehenden Bufdis-Signatur zu.
+Workspace und Outlook lesen dieselbe Zuordnung; keine neue Signaturgestaltung, kein Loginwechsel
+und kein FileMaker-Update. Die bisherigen Signaturen und ausgeschlossenen Konten bleiben erhalten.
+Maryams fehlende zentrale Add-in-Zuweisung wird als einzige Ergänzung vorgenommen (18 → 19).

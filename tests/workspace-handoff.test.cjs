@@ -66,3 +66,17 @@ test('sender resolution does not race a pending workspace message',async()=>{
   context.onMessageFromChangedHandler({completed(){completed++;}});
   await new Promise(resolve=>setImmediate(resolve));assert.equal(signature,0);assert.equal(completed,1);
 });
+
+
+test('Maryam uses the existing Bufdis signature without changing any sender identity',()=>{
+  const signatures=JSON.parse(readFileSync(require('node:path').join(__dirname,'../public/addin/signatures.json'),'utf8'));
+  assert.equal(signatures['m.trawally@casa-bremen.de'],signatures['bufdis@casa-bremen.de']);
+  assert.ok(signatures['m.trawally@casa-bremen.de'].includes('bufdis@casa-bremen.de'));
+});
+test('a checked workspace message accepts the account selected by the operator',async()=>{
+  const {context,calls,acknowledgements}=setup();
+  context.Office.context.mailbox.item.from={getAsync(cb){cb({status:'ok',value:{emailAddress:'another-account@example.invalid'}});}};
+  await context.casaTryWorkspace({completed(){}});
+  assert.deepEqual(acknowledgements,['ready']);
+  assert.ok(calls.some(c=>c[0]==='to'));assert.ok(calls.some(c=>c[0]==='signature'));
+});
