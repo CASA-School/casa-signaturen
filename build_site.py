@@ -71,6 +71,9 @@ print("public/index.html", len(PEOPLE) + len(SHARED), "Signaturen +1 Vorlage,", 
 ADDIN_EXCLUDE = {"online@casa-bremen.de"}
 sigs = {v["mail"].lower(): absolute(build(**{k: x for k, x in v.items() if k != "todo"}, embed=False))
         for v in MAILBOXES.values() if v["mail"].lower() not in ADDIN_EXCLUDE}
+# Rahman, 07.11.2026: Maryam nutzt unverändert die vorhandene Bufdis-Signatur.
+# Dies ordnet nur Signatur-HTML zu, nicht das Absenderkonto.
+sigs["m.trawally@casa-bremen.de"] = sigs["bufdis@casa-bremen.de"]
 os.makedirs(os.path.join(D, "public", "addin"), exist_ok=True)
 json.dump(sigs, open(os.path.join(D, "public", "addin", "signatures.json"), "w"), ensure_ascii=False)
 print("public/addin/signatures.json", len(sigs), "Postfächer")
