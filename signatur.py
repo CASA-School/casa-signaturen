@@ -121,6 +121,8 @@ MAILBOXES = {
                        role_en="Finance &amp; Accounting", mail="buchhaltung@casa-bremen.de"),
  "bufdis":        dict(signer="Ihr CASA-Team", role_de="Bundes&shy;freiwilligendienst",
                        role_en="Volunteer Programme", mail="bufdis@casa-bremen.de"),
+ "bewerbungen":   dict(signer="Ihr CASA-Team", role_de="Bewerbungen",
+                       role_en="Applications", mail="bewerbungen@casa-bremen.de"),
  # "CASA Learn" from the mailbox list is the shared mailbox CASA Lernen
  "lernen":        dict(signer="Ihr CASA-Team", role_de="CASA Lernen",
                        role_en="Learning Platform", mail="lernen@casa-bremen.de"),
