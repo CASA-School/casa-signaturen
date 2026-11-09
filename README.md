@@ -106,7 +106,7 @@ Nur bei Änderungen an `manifest.xml` (neue Ereignisse, Rechte, Icons, Name): `<
   Der lokale `vercel`-CLI-Login ist Rahmans privates Konto – nicht für CASA verwenden.
 
 ## Offen
-- bewerbungen@, accounting@, Rechnungen@, it@ brauchen keine Signatur (Entscheidung Rahman 07.10.2026).
+- accounting@, Rechnungen@, it@ brauchen keine Signatur (Entscheidung Rahman 07.10.2026). bewerbungen@ hat seit 09.11.2026 eine (Bewerbungen / Applications).
 - Rahmans früher seitlich geladene Testkopie (Outlook im Web → Add-Ins → Benutzerdefinierte Add-Ins) entfernen, sobald
   die zentrale Version bei ihm da ist (gleiche ID, schadet nicht, ist aber doppelt).
 - Optional kurze Adresse `signatur.casa-bremen.de` (DNS-Eintrag beim Domain-Verwalter nötig).
